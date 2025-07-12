@@ -39,6 +39,11 @@ pipeline {
                             npm test
                         '''
                     }
+                    post {
+                        always {
+                            junit 'jest-results/junit.xml'
+                        }
+                    }
                 }
 
                 stage('e2e') {
@@ -56,31 +61,30 @@ pipeline {
                             sleep 10
                             npx playwright test --reporter=html
                         '''
+                    }
+                    post {
+                        always {
+                            junit 'jest-results/junit.xml'
+                            publishHTML(
+                                [
+                                    allowMissing: false, 
+                                    alwaysLinkToLastBuild: true, 
+                                    icon: '', 
+                                    keepAll: true, 
+                                    reportDir: 'playwright-report', 
+                                    reportFiles: 'index.html', 
+                                    reportName: 'playwright HTML Report', 
+                                    reportTitles: '', 
+                                    useWrapperFileDirectly: true,
+                                ]
+                            )
                         }
-                        
+                    }
                 }
             }
         }
     }
-    post {
-        always {
-            junit 'jest-results/junit.xml'
-            publishHTML(
-                [
-                    allowMissing: false, 
-                    alwaysLinkToLastBuild: false, 
-                    icon: '', 
-                    keepAll: true, 
-                    reportDir: 'playwright-report', 
-                    reportFiles: 'index.html', 
-                    reportName: 'playwright HTML Report', 
-                    reportTitles: '', 
-                    useWrapperFileDirectly: true,
-                    
-                ]
-            )
-        }
-    }
+    
         
 }
     
