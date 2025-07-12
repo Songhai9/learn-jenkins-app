@@ -18,6 +18,7 @@ pipeline {
                     npm run build
                     ls -la
                 '''
+            }
         }
 
         stage('Run tests') {
@@ -81,7 +82,5 @@ pipeline {
             }
         }
     }
-    
-        
     }
 }
