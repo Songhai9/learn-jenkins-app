@@ -76,7 +76,7 @@ pipeline {
                     reportName: 'playwright HTML Report', 
                     reportTitles: '', 
                     useWrapperFileDirectly: true,
-                    alwaysLinkToLastBuild: true
+                    
                 ]
             )
         }
