@@ -140,6 +140,7 @@ pipeline {
             steps {
                 timeout(15) {
                     input message: 'Do you wish to deploy to production?', ok: 'Yes, I am sure!'
+                }
             }
         }
 
