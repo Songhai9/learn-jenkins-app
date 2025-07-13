@@ -133,8 +133,7 @@ pipeline {
                 }
             }
         }
-    
-    }
+
 
         stage('Approval') {
             steps {
@@ -193,5 +192,6 @@ pipeline {
             }
         }
     
+    }
 }
 
