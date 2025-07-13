@@ -81,24 +81,6 @@ pipeline {
             }
         }
 
-        stage('Deploy Staging') {
-            agent {
-                docker {
-                    image 'node:18'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm install netlify-cli node-jq
-                    node_modules/.bin/netlify --version
-                    echo "Deploying to staging. Site ID: $NETLIFY_SITE_ID"
-                    node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=build --json > deploy-output.json
-                '''
-            }     
-        }
-
 
         stage('Deploy Staging') {
             agent {
