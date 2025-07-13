@@ -69,17 +69,15 @@ pipeline {
                         always {
                             junit 'jest-results/junit.xml'
                             publishHTML(
-                                [
-                                    allowMissing: false, 
-                                    alwaysLinkToLastBuild: true, 
-                                    icon: '', 
-                                    keepAll: true, 
-                                    reportDir: 'playwright-report', 
-                                    reportFiles: 'index.html', 
-                                    reportName: 'playwright HTML Local Report', 
-                                    reportTitles: '', 
-                                    useWrapperFileDirectly: true,
-                                ]
+                                allowMissing: false, 
+                                alwaysLinkToLastBuild: true, 
+                                icon: '', 
+                                keepAll: true, 
+                                reportDir: 'playwright-report', 
+                                reportFiles: 'index.html', 
+                                reportName: 'playwright HTML Local Report', 
+                                reportTitles: '', 
+                                useWrapperFileDirectly: false
                             )
                         }
                     }
@@ -126,16 +124,15 @@ pipeline {
                 always {
                     junit 'jest-results/junit.xml'
                     publishHTML(
-                        [
-                            allowMissing: false, 
-                            alwaysLinkToLastBuild: true, 
-                            icon: '', 
-                            keepAll: true, 
-                            reportDir: 'playwright-report', 
-                            reportFiles: 'index.html', 
-                            reportName: 'playwright e2e', 
-                            reportTitles: '',
-                        ]
+                        allowMissing: false, 
+                        alwaysLinkToLastBuild: true, 
+                        icon: '', 
+                        keepAll: true, 
+                        reportDir: 'playwright-report', 
+                        reportFiles: 'index.html', 
+                        reportName: 'playwright HTML Local Report', 
+                        reportTitles: '', 
+                        useWrapperFileDirectly: false
                     )
                 }
             }
