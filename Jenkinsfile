@@ -68,17 +68,13 @@ pipeline {
                     post {
                         always {
                             junit 'jest-results/junit.xml'
-                            publishHTML(
-                                allowMissing: false, 
-                                alwaysLinkToLastBuild: true, 
-                                icon: '', 
-                                keepAll: true, 
-                                reportDir: 'playwright-report', 
-                                reportFiles: 'index.html', 
-                                reportName: 'playwright HTML Local Report', 
-                                reportTitles: '', 
-                                useWrapperFileDirectly: false
-                            )
+                            publishHTML(target: [
+                                reportDir: 'playwright-report',
+                                reportFiles: 'index.html',
+                                reportName: 'Playwright Local Report',
+                                keepAll: true,
+                                alwaysLinkToLastBuild: true
+                            ])
                         }
                     }
                 }
@@ -123,17 +119,13 @@ pipeline {
             post {
                 always {
                     junit 'jest-results/junit.xml'
-                    publishHTML(
-                        allowMissing: false, 
-                        alwaysLinkToLastBuild: true, 
-                        icon: '', 
-                        keepAll: true, 
-                        reportDir: 'playwright-report', 
-                        reportFiles: 'index.html', 
-                        reportName: 'playwright HTML e2e Report', 
-                        reportTitles: '', 
-                        useWrapperFileDirectly: false
-                    )
+                    publishHTML(target: [
+                        reportDir: 'playwright-report',
+                        reportFiles: 'index.html',
+                        reportName: 'Playwright E2E Report',
+                        keepAll: true,
+                        alwaysLinkToLastBuild: true
+                    ])
                 }
             }
         }
