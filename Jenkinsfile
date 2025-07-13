@@ -76,7 +76,7 @@ pipeline {
                                     keepAll: true, 
                                     reportDir: 'playwright-report', 
                                     reportFiles: 'index.html', 
-                                    reportName: 'playwright HTML Report', 
+                                    reportName: 'playwright HTML Local Report', 
                                     reportTitles: '', 
                                     useWrapperFileDirectly: true,
                                 ]
@@ -104,5 +104,43 @@ pipeline {
                 '''
             }
         }
+
+        stage('Prod e2e') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                    reuseNode true
+                }
+            }
+
+            environment {
+                CI_ENVIRONMENT_URL = 'https://preeminent-tiramisu-7d3109.netlify.app'
+            }
+
+            steps {
+                sh '''
+                    npx playwright test --reporter=html
+                '''
+            }
+            post {
+                always {
+                    junit 'jest-results/junit.xml'
+                    publishHTML(
+                        [
+                            allowMissing: false, 
+                            alwaysLinkToLastBuild: true, 
+                            icon: '', 
+                            keepAll: true, 
+                            reportDir: 'playwright-report', 
+                            reportFiles: 'index.html', 
+                            reportName: 'playwright e2e', 
+                            reportTitles: '', 
+                            useWrapperFileDirectly: true,
+                        ]
+                    )
+                }
+            }
+        }
+    
     }
 }
