@@ -8,6 +8,22 @@ pipeline {
     }
 
     stages {
+
+        stage('AWS'){
+            agent {
+                docker {
+                    image 'amazon/aws-cli'
+                    args "--entrypoint=''"
+                    reuseNode true
+                }
+
+                withCredentials([usernamePassword(credentialsId: 'AWS-Jenkins', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                    sh '''
+                        aws --version
+                    '''
+                }
+            }
+        }
         
         stage('build') {
             agent {
