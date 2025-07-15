@@ -9,6 +9,7 @@ pipeline {
 
     stages {
         
+
         stage('build') {
             agent {
                 docker {
@@ -27,6 +28,7 @@ pipeline {
                 '''
             }
         }
+
 
         stage('Run tests') {
             parallel {
@@ -50,6 +52,7 @@ pipeline {
                         }
                     }
                 }
+
 
                 stage('e2e') {
                     agent {
@@ -120,8 +123,6 @@ pipeline {
         }
 
 
-        
-
         stage('Deploy prod') {
             agent {
                 docker {
@@ -157,6 +158,7 @@ pipeline {
                 }
             }
         }
+
 
         stage('AWS'){
 
