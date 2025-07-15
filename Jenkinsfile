@@ -8,26 +8,6 @@ pipeline {
     }
 
     stages {
-
-        stage('AWS'){
-            agent {
-                docker {
-                    image 'amazon/aws-cli'
-                    args "--entrypoint=''"
-                    reuseNode true
-                }
-            }
-
-                steps {
-                        withCredentials([usernamePassword(credentialsId: 'AWS-Jenkins', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
-                        sh '''
-                            aws --version
-                            aws s3 sync build s3:::learn-jenkins20251507
-                        '''
-                    }
-                }
-            
-        }
         
         stage('build') {
             agent {
@@ -176,6 +156,30 @@ pipeline {
                     ])
                 }
             }
+        }
+
+        stage('AWS'){
+
+            environment {
+                AWS_BUCKET_NAME='learn-jenkins20251507'
+            }
+            agent {
+                docker {
+                    image 'amazon/aws-cli'
+                    args "--entrypoint=''"
+                    reuseNode true
+                }
+            }
+
+                steps {
+                        withCredentials([usernamePassword(credentialsId: 'AWS-Jenkins', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                        sh '''
+                            aws --version
+                            aws s3 sync build s3://$AWS_BUCKET_NAME
+                        '''
+                    }
+                }
+            
         }
     
     }
