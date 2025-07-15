@@ -22,7 +22,7 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: 'AWS-Jenkins', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                         sh '''
                             aws --version
-                            aws s3 sync build arn:aws:s3:::learn-jenkins20251507
+                            aws s3 sync build s3:::learn-jenkins20251507
                         '''
                     }
                 }
